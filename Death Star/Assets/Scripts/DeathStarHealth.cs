@@ -1,36 +1,37 @@
 using System;
 using UnityEngine;
 
-/// <summary>
-/// Gestiona el HP de la Estrella de la Muerte.
-/// Asignar en el GameObject raíz de la DeathStar.
-/// </summary>
 public class DeathStarHealth : MonoBehaviour
 {
-    [SerializeField] private float maxHp = 1000f;
+    [SerializeField] private float maxHP = 100f;
 
-    public event Action<float> OnHpChanged;   // 0-1 normalizado
-    public event Action OnDestroyed;
+    public float CurrentHP { get; private set; }
+    public float HPPercent => CurrentHP / maxHP;
 
-    public float CurrentHp { get; private set; }
-    public float HpNormalized => CurrentHp / maxHp;
-    public bool IsDestroyed { get; private set; }
+    // Otros sistemas se suscriben a estos eventos (UIManager, GameManager)
+    public event Action OnVictory;
+    public event Action<float> OnHPChanged; // pasa el % de 0 a 1
 
-    private void Awake() => CurrentHp = maxHp;
+    private bool victoryFired = false;
 
-    /// <summary>Llamado por CriticalPoint al recibir impacto.</summary>
+    void Awake()
+    {
+        CurrentHP = maxHP;
+    }
+
     public void TakeDamage(float amount)
     {
-        if (IsDestroyed || GameManager.Instance.CurrentState != GameState.Playing) return;
+        if (victoryFired) return; // evita daño post-victoria
 
-        CurrentHp = Mathf.Max(0f, CurrentHp - amount);
-        OnHpChanged?.Invoke(HpNormalized);
+        CurrentHP = Mathf.Max(0f, CurrentHP - amount);
+        OnHPChanged?.Invoke(HPPercent);
 
-        if (HpNormalized < 0.1f)
+        Debug.Log($"[DeathStar] HP: {CurrentHP:F1} / {maxHP} ({HPPercent * 100:F0}%)");
+
+        if (HPPercent <= 0.1f && !victoryFired)
         {
-            IsDestroyed = true;
-            OnDestroyed?.Invoke();
-            GameManager.Instance.TriggerVictory();
+            victoryFired = true;
+            OnVictory?.Invoke();
         }
     }
 }

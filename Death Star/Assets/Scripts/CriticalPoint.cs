@@ -1,35 +1,25 @@
 using UnityEngine;
 
-/// <summary>
-/// Punto crítico de la Estrella de la Muerte.
-/// Requiere un Collider (puede ser trigger o sólido).
-/// El DeathStarHealth debe estar en un padre de este GameObject.
-/// </summary>
-[RequireComponent(typeof(Collider))]
 public class CriticalPoint : MonoBehaviour
 {
-    [SerializeField] private float damageMultiplier = 1f;
-    [SerializeField] private ParticleSystem hitVfx;          // efecto al impactar
+    [SerializeField] private float damagePerHit = 10f;
 
-    // Cacheado en Awake para no usar GetComponentInParent en cada impacto
-    private DeathStarHealth _deathStarHealth;
+    private DeathStarHealth deathStarHealth;
 
-    private void Awake()
+    void Awake()
     {
-        _deathStarHealth = GetComponentInParent<DeathStarHealth>();
-        if (_deathStarHealth == null)
-            Debug.LogError($"[CriticalPoint] No se encontró DeathStarHealth en los padres de {name}");
+        // Sube en la jerarquía a buscar DeathStarHealth en el padre
+        deathStarHealth = GetComponentInParent<DeathStarHealth>();
+
+        if (deathStarHealth == null)
+            Debug.LogError($"[CriticalPoint] {name} no encontró DeathStarHealth en su padre.");
     }
 
-    /// <summary>Llamado por el proyectil al colisionar.</summary>
-    public void ReceiveHit(float baseDamage)
+    public void TakeHit()
     {
-        _deathStarHealth?.TakeDamage(baseDamage * damageMultiplier);
+        deathStarHealth?.TakeDamage(damagePerHit);
 
-        if (hitVfx != null)
-        {
-            hitVfx.transform.position = transform.position;
-            hitVfx.Play();
-        }
+        // Flash visual temporal para feedback (opcional aquí)
+        Debug.Log($"[CriticalPoint] Impacto en {name}!");
     }
 }

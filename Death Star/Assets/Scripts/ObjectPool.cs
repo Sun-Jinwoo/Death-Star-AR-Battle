@@ -1,60 +1,42 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Pool genérico. Crea un GameObject por tipo de prefab.
-/// Uso: ObjectPool.GetPool(prefab).Get() / Release(obj)
-/// </summary>
 public class ObjectPool : MonoBehaviour
 {
+    public static ObjectPool Instance { get; private set; }
+
     [SerializeField] private GameObject prefab;
     [SerializeField] private int initialSize = 20;
 
-    private readonly Queue<GameObject> _pool = new();
+    private readonly Queue<GameObject> pool = new Queue<GameObject>();
 
-    // ?? Registro estático de pools por prefab ??????????????????
-    private static readonly Dictionary<GameObject, ObjectPool> Pools = new();
-
-    public static ObjectPool GetPool(GameObject prefab)
+    void Awake()
     {
-        if (Pools.TryGetValue(prefab, out var pool)) return pool;
-
-        var go = new GameObject($"Pool_{prefab.name}");
-        var newPool = go.AddComponent<ObjectPool>();
-        newPool.prefab = prefab;
-        newPool.initialSize = 20;
-        newPool.Initialize();
-        Pools[prefab] = newPool;
-        return newPool;
-    }
-
-    private void Awake() => Initialize();
-
-    private void Initialize()
-    {
+        Instance = this;
         for (int i = 0; i < initialSize; i++)
-            _pool.Enqueue(CreateInstance());
+            CreateNew();
     }
 
-    private GameObject CreateInstance()
+    void CreateNew()
     {
         var obj = Instantiate(prefab, transform);
         obj.SetActive(false);
-        return obj;
+        pool.Enqueue(obj);
     }
 
     public GameObject Get(Vector3 position, Quaternion rotation)
     {
-        var obj = _pool.Count > 0 ? _pool.Dequeue() : CreateInstance();
+        if (pool.Count == 0) CreateNew(); // expande el pool si hace falta
+
+        var obj = pool.Dequeue();
         obj.transform.SetPositionAndRotation(position, rotation);
         obj.SetActive(true);
         return obj;
     }
 
-    public void Release(GameObject obj)
+    public void Return(GameObject obj)
     {
         obj.SetActive(false);
-        obj.transform.SetParent(transform);
-        _pool.Enqueue(obj);
+        pool.Enqueue(obj);
     }
 }

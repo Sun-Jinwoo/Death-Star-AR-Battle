@@ -1,70 +1,47 @@
 using System;
 using UnityEngine;
 
-public enum GameState { WaitingForPlacement, Playing, Victory, Defeat }
-
 public class GameManager : MonoBehaviour
 {
-    // ?? Singleton ??????????????????????????????????????????????
+    public enum GameState { Playing, Won, Lost }
+
     public static GameManager Instance { get; private set; }
+    public GameState State { get; private set; } = GameState.Playing;
 
-    // ?? Inspector ??????????????????????????????????????????????
-    [SerializeField] private float gameDuration = 60f; // segundos
-
-    // ?? Eventos públicos ???????????????????????????????????????
     public event Action<GameState> OnStateChanged;
-    public event Action<float> OnTimerUpdated;   // segundos restantes
-    public event Action OnVictory;
-    public event Action OnDefeat;
 
-    // ?? Estado ?????????????????????????????????????????????????
-    public GameState CurrentState { get; private set; } = GameState.WaitingForPlacement;
-    public float TimeRemaining { get; private set; }
+    [SerializeField] private DeathStarHealth deathStar;
 
-    private void Awake()
+    void Awake()
     {
-        if (Instance != null) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
         Instance = this;
     }
 
-    private void Update()
+    void Start()
     {
-        if (CurrentState != GameState.Playing) return;
-
-        TimeRemaining -= Time.deltaTime;
-        OnTimerUpdated?.Invoke(TimeRemaining);
-
-        if (TimeRemaining <= 0f)
-            TriggerDefeat();
+        deathStar.OnVictory += () => SetState(GameState.Won);
+        SetState(GameState.Playing);
     }
 
-    // ?? API pública ????????????????????????????????????????????
-
-    public void StartGame()
+    public void SetState(GameState newState)
     {
-        TimeRemaining = gameDuration;
-        ChangeState(GameState.Playing);
-    }
-
-    /// <summary>Llamado por DeathStarHealth cuando HP < 10%</summary>
-    public void TriggerVictory()
-    {
-        if (CurrentState != GameState.Playing) return;
-        ChangeState(GameState.Victory);
-        OnVictory?.Invoke();
-    }
-
-    /// <summary>Llamado por el temporizador o por el rayo de la Estrella</summary>
-    public void TriggerDefeat()
-    {
-        if (CurrentState != GameState.Playing) return;
-        ChangeState(GameState.Defeat);
-        OnDefeat?.Invoke();
-    }
-
-    private void ChangeState(GameState newState)
-    {
-        CurrentState = newState;
+        State = newState;
         OnStateChanged?.Invoke(newState);
+        Debug.Log($"[GameManager] *** Estado: {newState} ***");
+    }
+
+    // El temporizador llamará esto cuando se acabe el tiempo
+    public void TriggerDefeat() => SetState(GameState.Lost);
+
+    void OnDestroy()
+    {
+        // Evita memory leaks al salir del play mode
+        if (deathStar != null)
+            deathStar.OnVictory -= () => SetState(GameState.Won);
     }
 }

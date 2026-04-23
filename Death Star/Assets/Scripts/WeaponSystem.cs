@@ -1,55 +1,48 @@
-using UnityEngine;
+Ôªøusing UnityEngine;
+using UnityEngine.InputSystem; // ‚Üê nuevo namespace
 
-/// <summary>
-/// Sistema de disparo del jugador.
-/// Usa un Raycast desde el centro de la c·mara para calcular la direcciÛn
-/// y luego instancia el proyectil desde GunPoint.
-/// Asignar: gunPoint, projectilePrefab, camera (AR Camera).
-/// </summary>
 public class WeaponSystem : MonoBehaviour
 {
-    [SerializeField] private Transform gunPoint;
-    [SerializeField] private GameObject projectilePrefab;
-    [SerializeField] private Camera arCamera;
-    [SerializeField] private float fireRate = 0.3f;   // disparos por segundo
-    [SerializeField] private LayerMask aimLayerMask;          // CriticalPoint + DeathStarShell
+    [SerializeField] private Transform firePoint;
+    [SerializeField] private LayerMask targetLayers;
+    [SerializeField] private float fireRate = 0.3f;
 
-    private float _nextFireTime;
-    private ObjectPool _pool;
+    private float nextFireTime;
+    private Camera mainCam;
 
-    private void Start()
+    void Awake()
     {
-        _pool = ObjectPool.GetPool(projectilePrefab);
+        mainCam = GetComponent<Camera>() ?? Camera.main;
     }
 
-    private void Update()
+    void Update()
     {
-        if (GameManager.Instance.CurrentState != GameState.Playing) return;
+        if (GameManager.Instance.State != GameManager.GameState.Playing) return;
 
-        // BotÛn de disparo: tap en pantalla (fuera del ·rea de UI) o Space en editor
-        bool fireInput = (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Began)
-                      || Input.GetKeyDown(KeyCode.Space);
+        // New Input System: Mouse.current en lugar de Input.GetMouseButton
+        bool firing = Mouse.current != null && Mouse.current.leftButton.isPressed;
 
-        if (fireInput && Time.time >= _nextFireTime)
+        if (firing && Time.time >= nextFireTime)
+        {
             Fire();
+            nextFireTime = Time.time + fireRate;
+        }
     }
 
-    private void Fire()
+    void Fire()
     {
-        _nextFireTime = Time.time + fireRate;
+        // New Input System: Mouse.current.position.ReadValue()
+        Vector2 mouseScreen = Mouse.current.position.ReadValue();
 
-        // Raycast desde el centro de la c·mara para encontrar el punto de impacto
-        Ray ray = arCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
-        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 200f, aimLayerMask)
+        Ray ray = mainCam.ScreenPointToRay(mouseScreen);
+
+        Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 500f, targetLayers)
             ? hit.point
-            : ray.GetPoint(100f);
+            : ray.origin + ray.direction * 100f;
 
-        // Orienta el proyectil hacia el objetivo
-        Vector3 direction = (targetPoint - gunPoint.position).normalized;
+        Vector3 direction = (targetPoint - firePoint.position).normalized;
         Quaternion rotation = Quaternion.LookRotation(direction);
 
-        var projGO = _pool.Get(gunPoint.position, rotation);
-        if (projGO.TryGetComponent<Projectile>(out var proj))
-            proj.Init(_pool);
+        ObjectPool.Instance.Get(firePoint.position, rotation);
     }
 }

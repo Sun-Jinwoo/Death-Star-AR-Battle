@@ -1,61 +1,126 @@
-using System;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
-/// <summary>
-/// Actualiza toda la UI en respuesta a eventos del GameManager y DeathStarHealth.
-/// Asignar en el Inspector: hpSlider, timerText, crosshair, victoryPanel, defeatPanel.
-/// </summary>
 public class UIManager : MonoBehaviour
 {
     [Header("HUD")]
     [SerializeField] private Slider hpSlider;
-    [SerializeField] private TMP_Text timerText;
-    [SerializeField] private Image crosshair;
+    [SerializeField] private TextMeshProUGUI hpText;
+    [SerializeField] private TextMeshProUGUI timerText;
+    [SerializeField] private GameObject crosshair;
 
-    [Header("Pantallas finales")]
-    [SerializeField] private GameObject victoryPanel;
-    [SerializeField] private GameObject defeatPanel;
+    [Header("Pantallas de resultado")]
+    [SerializeField] private GameObject winScreen;
+    [SerializeField] private GameObject loseScreen;
+    [SerializeField] private TextMeshProUGUI winStatsText;
+    [SerializeField] private TextMeshProUGUI loseStatsText;
 
     [Header("Referencias")]
     [SerializeField] private DeathStarHealth deathStarHealth;
+    [SerializeField] private GameManager gameManager;
+    [SerializeField] private float totalTime = 60f;
 
-    private void Start()
+    private float timeLeft;
+    private bool running = false;
+    private int hits = 0;
+
+    void Start()
     {
-        GameManager.Instance.OnTimerUpdated += UpdateTimer;
-        GameManager.Instance.OnVictory += ShowVictory;
-        GameManager.Instance.OnDefeat += ShowDefeat;
-        deathStarHealth.OnHpChanged += UpdateHp;
+        timeLeft = totalTime;
 
-        victoryPanel.SetActive(false);
-        defeatPanel.SetActive(false);
-        hpSlider.value = 1f;
+        // Suscribirse a eventos
+        deathStarHealth.OnHPChanged += HandleHPChanged;
+        deathStarHealth.OnVictory += () => hits++; // cuenta impactos via eventos opcionales
+        gameManager.OnStateChanged += HandleStateChanged;
+
+        // Estado inicial
+        winScreen.SetActive(false);
+        loseScreen.SetActive(false);
+        UpdateHPDisplay(1f);
+        UpdateTimerDisplay();
     }
 
-    private void OnDestroy()
+    void Update()
     {
-        if (GameManager.Instance == null) return;
-        GameManager.Instance.OnTimerUpdated -= UpdateTimer;
-        GameManager.Instance.OnVictory -= ShowVictory;
-        GameManager.Instance.OnDefeat -= ShowDefeat;
-        deathStarHealth.OnHpChanged -= UpdateHp;
+        if (!running) return;
+
+        timeLeft -= Time.deltaTime;
+        UpdateTimerDisplay();
+
+        if (timeLeft <= 0f)
+        {
+            timeLeft = 0f;
+            running = false;
+            gameManager.TriggerDefeat();
+        }
     }
 
-    private void UpdateTimer(float seconds)
-    {
-        int m = Mathf.FloorToInt(seconds / 60f);
-        int s = Mathf.FloorToInt(seconds % 60f);
-        timerText.text = $"{m:00}:{s:00}";
+    // --- Handlers ---
 
-        // Parpadeo rojo en los últimos 10 segundos
-        timerText.color = seconds <= 10f
-            ? Color.Lerp(Color.red, Color.white, Mathf.PingPong(Time.time * 3f, 1f))
-            : Color.white;
+    void HandleHPChanged(float percent)
+    {
+        hits++;
+        UpdateHPDisplay(percent);
     }
 
-    private void UpdateHp(float normalized) => hpSlider.value = normalized;
+    void HandleStateChanged(GameManager.GameState state)
+    {
+        switch (state)
+        {
+            case GameManager.GameState.Playing:
+                running = true;
+                crosshair.SetActive(true);
+                break;
 
-    private void ShowVictory() { victoryPanel.SetActive(true); crosshair.enabled = false; }
-    private void ShowDefeat() { defeatPanel.SetActive(true); crosshair.enabled = false; }
+            case GameManager.GameState.Won:
+                running = false;
+                crosshair.SetActive(false);
+                winStatsText.text = $"Tiempo restante: {FormatTime(timeLeft)}\nImpactos: {hits}";
+                winScreen.SetActive(true);
+                break;
+
+            case GameManager.GameState.Lost:
+                running = false;
+                crosshair.SetActive(false);
+                loseStatsText.text = $"HP restante: {deathStarHealth.HPPercent * 100:F0}%\nImpactos: {hits}";
+                loseScreen.SetActive(true);
+                break;
+        }
+    }
+
+    // --- Helpers ---
+
+    void UpdateHPDisplay(float percent)
+    {
+        if (hpSlider != null)
+            hpSlider.value = percent;
+
+        if (hpText != null)
+            hpText.text = $"{percent * 100:F0}%";
+    }
+
+    void UpdateTimerDisplay()
+    {
+        if (timerText == null) return;
+
+        timerText.text = FormatTime(timeLeft);
+
+        // Cambia color cuando quedan menos de 15 segundos
+        timerText.color = timeLeft <= 15f ? Color.red : Color.white;
+    }
+
+    string FormatTime(float seconds)
+    {
+        int m = Mathf.FloorToInt(seconds / 60);
+        int s = Mathf.FloorToInt(seconds % 60);
+        return $"{m:00}:{s:00}";
+    }
+
+    void OnDestroy()
+    {
+        if (deathStarHealth != null) deathStarHealth.OnHPChanged -= HandleHPChanged;
+        if (gameManager != null) gameManager.OnStateChanged -= HandleStateChanged;
+    }
 }
