@@ -1,13 +1,14 @@
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.XR.ARFoundation;
 using UnityEngine.XR.ARSubsystems;
 using UnityEngine.InputSystem;
+using System.Collections.Generic;
 
 public class ARPlacementManager : MonoBehaviour
 {
     [SerializeField] private ARRaycastManager arRaycastManager;
     [SerializeField] private ARPlaneManager arPlaneManager;
+    [SerializeField] private ARAnchorManager arAnchorManager;  // ← NUEVO
     [SerializeField] private GameObject sceneRoot;
     [SerializeField] private GameManager gameManager;
     [SerializeField] private PlacementUI placementUI;
@@ -17,7 +18,6 @@ public class ARPlacementManager : MonoBehaviour
 
     void OnEnable()
     {
-        // Suscribe al evento de detecci�n de planos para notificar al UI
         arPlaneManager.trackablesChanged.AddListener(OnPlanesChanged);
     }
 
@@ -29,8 +29,6 @@ public class ARPlacementManager : MonoBehaviour
     void OnPlanesChanged(ARTrackablesChangedEventArgs<ARPlane> args)
     {
         if (scenePlaced) return;
-
-        // Notifica al PlacementUI cuando detecta el primer plano
         if (arPlaneManager.trackables.count > 0)
             placementUI?.OnPlaneFound();
     }
@@ -50,11 +48,17 @@ public class ARPlacementManager : MonoBehaviour
         {
             Pose hitPose = hits[0].pose;
 
-            sceneRoot.transform.SetPositionAndRotation(hitPose.position, hitPose.rotation);
+            // Posiciona el SceneRoot
+            sceneRoot.transform.SetPositionAndRotation(
+                hitPose.position,
+                hitPose.rotation
+            );
             sceneRoot.SetActive(true);
 
-            scenePlaced = true;
+            // Ancla el objeto al mundo real
+            AnchorScene(hits[0]);
 
+            scenePlaced = true;
             StopPlaneDetection();
 
             placementUI?.gameObject.SetActive(false);
@@ -62,18 +66,32 @@ public class ARPlacementManager : MonoBehaviour
         }
     }
 
+    void AnchorScene(ARRaycastHit hit)
+    {
+        // Crea un ARAnchor en el punto tocado
+        var anchor = arAnchorManager.AttachAnchor(
+            hit.trackable as ARPlane,
+            hit.pose
+        );
+
+        if (anchor != null)
+        {
+            // El SceneRoot se vuelve hijo del ancla
+            // así queda clavado en el mundo real
+            sceneRoot.transform.SetParent(anchor.transform);
+            Debug.Log("[AR] Escena anclada correctamente");
+        }
+        else
+        {
+            Debug.LogWarning("[AR] No se pudo crear el ancla — objeto puede flotar");
+        }
+    }
+
     void StopPlaneDetection()
     {
-        // 1. Desactiva el manager � no detecta nuevos planos
         arPlaneManager.enabled = false;
-
-        // 2. Oculta Y desactiva cada plano ya detectado completamente
         foreach (var plane in arPlaneManager.trackables)
-        {
             plane.gameObject.SetActive(false);
-        }
-
-        // 3. Limpia la lista de hits para liberar memoria
         hits.Clear();
     }
 }
