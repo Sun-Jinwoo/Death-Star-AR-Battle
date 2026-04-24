@@ -2428,8 +2428,8 @@ GameObject:
   - component: {fileID: 796267908}
   - component: {fileID: 796267907}
   - component: {fileID: 796267906}
-  - component: {fileID: 796267905}
   - component: {fileID: 796267910}
+  - component: {fileID: 796267905}
   m_Layer: 0
   m_Name: XR Origin (1)
   m_TagString: Untagged
@@ -2537,7 +2537,7 @@ MonoBehaviour:
   <trackablesChanged>k__BackingField:
     m_PersistentCalls:
       m_Calls: []
-  m_AnchorPrefab: {fileID: 0}
+  m_AnchorPrefab: {fileID: 8176632483399065973, guid: 5dd74dd296078c249817a5ebccb52e43, type: 3}
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

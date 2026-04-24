@@ -68,23 +68,22 @@ public class ARPlacementManager : MonoBehaviour
 
     void AnchorScene(ARRaycastHit hit)
     {
-        // Crea un ARAnchor en el punto tocado
-        var anchor = arAnchorManager.AttachAnchor(
-            hit.trackable as ARPlane,
-            hit.pose
-        );
+        // Desparentea por si acaso tiene algún padre
+        sceneRoot.transform.SetParent(null);
 
-        if (anchor != null)
+        // Fija posición y rotación en coordenadas del mundo AR
+        sceneRoot.transform.position = hit.pose.position;
+        sceneRoot.transform.rotation = hit.pose.rotation;
+
+        // Congela el Rigidbody si tiene alguno
+        var rb = sceneRoot.GetComponent<Rigidbody>();
+        if (rb != null)
         {
-            // El SceneRoot se vuelve hijo del ancla
-            // así queda clavado en el mundo real
-            sceneRoot.transform.SetParent(anchor.transform);
-            Debug.Log("[AR] Escena anclada correctamente");
+            rb.isKinematic = true;
+            rb.constraints = RigidbodyConstraints.FreezeAll;
         }
-        else
-        {
-            Debug.LogWarning("[AR] No se pudo crear el ancla — objeto puede flotar");
-        }
+
+        Debug.Log($"[AR] Escena fijada en {hit.pose.position}");
     }
 
     void StopPlaneDetection()
