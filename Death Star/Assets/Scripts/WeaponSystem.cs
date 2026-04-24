@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using UnityEngine.InputSystem; // ← nuevo namespace
+using UnityEngine.InputSystem;
 
 public class WeaponSystem : MonoBehaviour
 {
@@ -15,26 +15,21 @@ public class WeaponSystem : MonoBehaviour
         mainCam = GetComponent<Camera>() ?? Camera.main;
     }
 
-    void Update()
+    // Llamado por el FireButton
+    public void TryFire()
     {
         if (GameManager.Instance.State != GameManager.GameState.Playing) return;
+        if (Time.time < nextFireTime) return;
 
-        // New Input System: Mouse.current en lugar de Input.GetMouseButton
-        bool firing = Mouse.current != null && Mouse.current.leftButton.isPressed;
-
-        if (firing && Time.time >= nextFireTime)
-        {
-            Fire();
-            nextFireTime = Time.time + fireRate;
-        }
+        Fire();
+        nextFireTime = Time.time + fireRate;
     }
 
     void Fire()
     {
-        // New Input System: Mouse.current.position.ReadValue()
-        Vector2 mouseScreen = Mouse.current.position.ReadValue();
-
-        Ray ray = mainCam.ScreenPointToRay(mouseScreen);
+        // Usa la posición de la mira en pantalla
+        Vector2 screenPos = CrosshairMover.Instance.CrosshairScreenPos;
+        Ray ray = mainCam.ScreenPointToRay(screenPos);
 
         Vector3 targetPoint = Physics.Raycast(ray, out RaycastHit hit, 500f, targetLayers)
             ? hit.point

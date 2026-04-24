@@ -1,7 +1,8 @@
-using UnityEngine;
-using UnityEngine.UI;
+﻿using System;
 using TMPro;
-using System;
+using UnityEngine;
+using UnityEngine.InputSystem.HID;
+using UnityEngine.UI;
 
 public class UIManager : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI hpText;
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject crosshair;
+    [SerializeField] private GameObject hud;
 
     [Header("Pantallas de resultado")]
     [SerializeField] private GameObject winScreen;
@@ -22,20 +24,22 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameManager gameManager;
     [SerializeField] private float totalTime = 60f;
 
+    [Header("Placement")]
+    [SerializeField] private GameObject placementUI;
+
     private float timeLeft;
     private bool running = false;
     private int hits = 0;
 
+    void Awake()
+    {
+        deathStarHealth.OnHPChanged += HandleHPChanged;
+        gameManager.OnStateChanged += HandleStateChanged;
+    }
+
     void Start()
     {
         timeLeft = totalTime;
-
-        // Suscribirse a eventos
-        deathStarHealth.OnHPChanged += HandleHPChanged;
-        deathStarHealth.OnVictory += () => hits++; // cuenta impactos via eventos opcionales
-        gameManager.OnStateChanged += HandleStateChanged;
-
-        // Estado inicial
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
         UpdateHPDisplay(1f);
@@ -69,7 +73,15 @@ public class UIManager : MonoBehaviour
     {
         switch (state)
         {
+            case GameManager.GameState.WaitingPlacement:
+                placementUI.SetActive(true);
+                hud.SetActive(false);
+                running = false;
+                break;
+
             case GameManager.GameState.Playing:
+                placementUI.SetActive(false);
+                hud.SetActive(true);
                 running = true;
                 crosshair.SetActive(true);
                 break;
@@ -87,6 +99,7 @@ public class UIManager : MonoBehaviour
                 loseStatsText.text = $"HP restante: {deathStarHealth.HPPercent * 100:F0}%\nImpactos: {hits}";
                 loseScreen.SetActive(true);
                 break;
+
         }
     }
 

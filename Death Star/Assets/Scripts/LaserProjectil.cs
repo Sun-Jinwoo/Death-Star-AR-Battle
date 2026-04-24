@@ -24,14 +24,14 @@ public class LaserProjectile : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Solo reacciona a CriticalPoints
         CriticalPoint cp = other.GetComponent<CriticalPoint>();
         if (cp != null)
         {
             cp.TakeHit();
+            // Spawn explosión en el punto de impacto
+            ImpactPool.Instance.Get(transform.position);
             ObjectPool.Instance.Return(gameObject);
         }
-        // Si golpea el body (inmune), simplemente se destruye visualmente
         else if (other.gameObject.layer == LayerMask.NameToLayer("DeathStarBody"))
         {
             ObjectPool.Instance.Return(gameObject);
