@@ -21,6 +21,12 @@ public class DeathStarHealth : MonoBehaviour
     {
         if (victoryFired) return;
 
+        // Inmune si hay enemigos vivos
+        if (EnemySpawner.Instance != null && EnemySpawner.Instance.HasActiveEnemies)
+        {
+            return;
+        }
+
         CurrentHP = Mathf.Max(0f, CurrentHP - amount);
         OnHPChanged?.Invoke(HPPercent);
 

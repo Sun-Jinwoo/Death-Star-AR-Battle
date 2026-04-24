@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem.HID;
@@ -12,6 +13,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI timerText;
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject hud;
+    [SerializeField] private GameObject shieldText;
+
 
     [Header("Player HP")]
     [SerializeField] private Slider playerHPSlider;
@@ -49,6 +52,9 @@ public class UIManager : MonoBehaviour
         {
             PlayerHealth.Instance.OnHPChanged += HandlePlayerHPChanged;
         }
+
+        if (EnemySpawner.Instance != null)
+            EnemySpawner.Instance.OnEnemySpawned += ShowShieldWarning;
 
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
@@ -151,5 +157,24 @@ public class UIManager : MonoBehaviour
     {
         if (deathStarHealth != null) deathStarHealth.OnHPChanged -= HandleHPChanged;
         if (gameManager != null) gameManager.OnStateChanged -= HandleStateChanged;
+        if (EnemySpawner.Instance != null)
+            EnemySpawner.Instance.OnEnemySpawned -= ShowShieldWarning;
+    }
+
+    void ShowShieldWarning()
+    {
+        Debug.Log($"[UIManager] ShowShieldWarning llamado — shieldText: {shieldText}");
+        if (shieldText != null)
+            StartCoroutine(FlashShieldText());
+        else
+            Debug.LogError("[UIManager] ShieldText es null");
+    }
+
+    IEnumerator FlashShieldText()
+    {
+        Debug.Log("[UIManager] FlashShieldText iniciado");
+        shieldText.SetActive(true);
+        yield return new WaitForSeconds(1.5f);
+        shieldText.SetActive(false);
     }
 }
