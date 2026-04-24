@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 
 public class LaserProjectile : MonoBehaviour
 {
@@ -28,11 +28,22 @@ public class LaserProjectile : MonoBehaviour
         if (cp != null)
         {
             cp.TakeHit();
-            // Spawn explosi�n en el punto de impacto
             ImpactPool.Instance.Get(transform.position);
             ObjectPool.Instance.Return(gameObject);
+            return;
         }
-        else if (other.gameObject.layer == LayerMask.NameToLayer("DeathStarBody"))
+
+        // ← NUEVO: detecta enemigos
+        EnemyHealth enemy = other.GetComponent<EnemyHealth>();
+        if (enemy != null)
+        {
+            enemy.TakeDamage(10f);
+            ImpactPool.Instance.Get(transform.position);
+            ObjectPool.Instance.Return(gameObject);
+            return;
+        }
+
+        if (other.gameObject.layer == LayerMask.NameToLayer("DeathStarBody"))
         {
             ObjectPool.Instance.Return(gameObject);
         }

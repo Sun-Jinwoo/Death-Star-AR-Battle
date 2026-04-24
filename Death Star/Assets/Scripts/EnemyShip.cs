@@ -8,19 +8,18 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private float fireRate = 2.5f;
     [SerializeField] private float fireAngleThreshold = 30f;
 
+    private Quaternion prefabRotationOffset;
     private Transform target;
     private float orbitAngle;
     private Camera mainCam;
 
     void Start()
     {
-        // Orbita alrededor de la Death Star
-        target = FindObjectOfType<DeathStarHealth>()?.transform;
+        // Guarda la rotación original del prefab como offset
+        prefabRotationOffset = transform.localRotation;
+        target = Object.FindFirstObjectByType<DeathStarHealth>()?.transform;
         mainCam = Camera.main;
-
-        // Ángulo inicial aleatorio para que no salgan todos en el mismo punto
         orbitAngle = Random.Range(0f, 360f);
-
         StartCoroutine(FireRoutine());
     }
 
@@ -29,7 +28,6 @@ public class EnemyShip : MonoBehaviour
         if (GameManager.Instance.State != GameManager.GameState.Playing) return;
         if (target == null) return;
 
-        // Orbita alrededor de la Death Star
         orbitAngle += orbitSpeed * Time.deltaTime;
 
         float rad = orbitAngle * Mathf.Deg2Rad;
@@ -41,9 +39,10 @@ public class EnemyShip : MonoBehaviour
 
         transform.position = target.position + offset;
 
-        // Mira hacia la cámara (el jugador)
+        // Mira hacia el jugador + aplica el offset del prefab
         Vector3 dirToPlayer = mainCam.transform.position - transform.position;
-        transform.rotation = Quaternion.LookRotation(dirToPlayer);
+        Quaternion lookRotation = Quaternion.LookRotation(dirToPlayer);
+        transform.rotation = lookRotation * prefabRotationOffset;
     }
 
     IEnumerator FireRoutine()
