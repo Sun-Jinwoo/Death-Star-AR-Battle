@@ -542,6 +542,7 @@ GameObject:
   - component: {fileID: 938056281}
   - component: {fileID: 938056280}
   - component: {fileID: 938056279}
+  - component: {fileID: 938056283}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -632,6 +633,18 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
+--- !u!114 &938056283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938056278}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51244be0d5bc9eb47a0dc0b6ee0c6677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &994180336
 GameObject:
   m_ObjectHideFlags: 0
@@ -831,6 +844,7 @@ GameObject:
   - component: {fileID: 1029227466}
   - component: {fileID: 1029227465}
   - component: {fileID: 1029227464}
+  - component: {fileID: 1029227467}
   m_Layer: 5
   m_Name: BotonStart
   m_TagString: Untagged
@@ -914,8 +928,8 @@ MonoBehaviour:
           m_StringArgument: SampleScene
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2094122885}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1029227467}
+        m_TargetAssemblyTypeName: UIButtonSound, Assembly-CSharp
         m_MethodName: PlayClick
         m_Mode: 1
         m_Arguments:
@@ -964,6 +978,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1029227462}
   m_CullTransparentMesh: 1
+--- !u!114 &1029227467
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1029227462}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51244be0d5bc9eb47a0dc0b6ee0c6677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &1079259836
 GameObject:
   m_ObjectHideFlags: 0
@@ -1253,6 +1279,7 @@ GameObject:
   - component: {fileID: 1464274297}
   - component: {fileID: 1464274296}
   - component: {fileID: 1464274295}
+  - component: {fileID: 1464274298}
   m_Layer: 5
   m_Name: BotonTutorial
   m_TagString: Untagged
@@ -1336,8 +1363,8 @@ MonoBehaviour:
           m_StringArgument: Tutorial
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2094122885}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1464274298}
+        m_TargetAssemblyTypeName: UIButtonSound, Assembly-CSharp
         m_MethodName: PlayClick
         m_Mode: 1
         m_Arguments:
@@ -1386,6 +1413,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1464274293}
   m_CullTransparentMesh: 1
+--- !u!114 &1464274298
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1464274293}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51244be0d5bc9eb47a0dc0b6ee0c6677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &1523092814
 GameObject:
   m_ObjectHideFlags: 0
@@ -1569,6 +1608,7 @@ GameObject:
   - component: {fileID: 1656602817}
   - component: {fileID: 1656602816}
   - component: {fileID: 1656602815}
+  - component: {fileID: 1656602818}
   m_Layer: 5
   m_Name: BotonRegistro
   m_TagString: Untagged
@@ -1652,8 +1692,8 @@ MonoBehaviour:
           m_StringArgument: Registro
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2094122885}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1656602818}
+        m_TargetAssemblyTypeName: UIButtonSound, Assembly-CSharp
         m_MethodName: PlayClick
         m_Mode: 1
         m_Arguments:
@@ -1702,6 +1742,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1656602813}
   m_CullTransparentMesh: 1
+--- !u!114 &1656602818
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1656602813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51244be0d5bc9eb47a0dc0b6ee0c6677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &1706592718
 GameObject:
   m_ObjectHideFlags: 0
@@ -1714,6 +1766,7 @@ GameObject:
   - component: {fileID: 1706592722}
   - component: {fileID: 1706592721}
   - component: {fileID: 1706592720}
+  - component: {fileID: 1706592723}
   m_Layer: 5
   m_Name: BotonSalir
   m_TagString: Untagged
@@ -1797,8 +1850,8 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 2094122885}
-        m_TargetAssemblyTypeName: AudioManager, Assembly-CSharp
+      - m_Target: {fileID: 1706592723}
+        m_TargetAssemblyTypeName: UIButtonSound, Assembly-CSharp
         m_MethodName: PlayClick
         m_Mode: 1
         m_Arguments:
@@ -1847,6 +1900,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1706592718}
   m_CullTransparentMesh: 1
+--- !u!114 &1706592723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1706592718}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51244be0d5bc9eb47a0dc0b6ee0c6677, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::UIButtonSound
 --- !u!1 &1760832241
 GameObject:
   m_ObjectHideFlags: 0
@@ -2395,7 +2460,7 @@ AudioSource:
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.524
+  m_Volume: 0.6
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -24,12 +24,13 @@ public class AudioManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
     }
 
     void Start()
     {
-        if (musicaFondo != null)
+        if (musicaFondo != null && !musicaSource.isPlaying)
         {
             musicaSource.clip = musicaFondo;
             musicaSource.loop = true;
@@ -37,21 +38,30 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 🔊 Sonido de botón
+    // 🔊 CLICK
     public void PlayClick()
     {
-        efectosSource.PlayOneShot(click);
+        if (instancia != null && click != null)
+        {
+            instancia.efectosSource.PlayOneShot(click);
+        }
     }
 
-    // 🔊 Hover (opcional)
+    // 🔊 HOVER
     public void PlayHover()
     {
-        efectosSource.PlayOneShot(hover);
+        if (instancia != null && hover != null)
+        {
+            instancia.efectosSource.PlayOneShot(hover);
+        }
     }
 
-    // 🔊 Reproducir cualquier sonido
+    // 🔊 GENERICO
     public void PlaySound(AudioClip clip)
     {
-        efectosSource.PlayOneShot(clip);
+        if (instancia != null && clip != null)
+        {
+            instancia.efectosSource.PlayOneShot(clip);
+        }
     }
 }
