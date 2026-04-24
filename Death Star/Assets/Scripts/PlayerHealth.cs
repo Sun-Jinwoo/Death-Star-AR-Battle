@@ -41,6 +41,8 @@ public class PlayerHealth : MonoBehaviour
             isDead = true;
             OnPlayerDead?.Invoke();
             GameManager.Instance.TriggerDefeat();
+
+            AudioManager.Instance?.Play("Lose ");
         }
     }
 }
