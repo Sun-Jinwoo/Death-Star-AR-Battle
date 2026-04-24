@@ -85,6 +85,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
       insertIndex: -1
       addedObject: {fileID: 9195417983568456043}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -812691142829382803}
   m_SourcePrefab: {fileID: 100100000, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
 --- !u!1 &7748132771185174786 stripped
 GameObject:
@@ -141,3 +144,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHealth
   maxHP: 30
+--- !u!114 &-812691142829382803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7748132771185174786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 648becb9ea63bea42952c0f788850e9c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::EnemyProjectilPool
+  prefab: {fileID: 0}
+  initialSize: 15

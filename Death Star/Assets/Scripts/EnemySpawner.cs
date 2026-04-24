@@ -28,12 +28,13 @@ public class EnemySpawner : MonoBehaviour
     void Awake()
     {
         Instance = this;
-    }
-
-    void Start()
-    {
         StartCoroutine(SpawnRoutine());
     }
+
+    /*void Start()
+    {
+        
+    }*/
 
     IEnumerator SpawnRoutine()
     {

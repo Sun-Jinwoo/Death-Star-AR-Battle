@@ -748,7 +748,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &250378289
 Transform:
   m_ObjectHideFlags: 0
@@ -779,7 +779,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::EnemySpawner
   enemyPrefab: {fileID: 7748132771185174786, guid: 6c6d26978283e8a47a22d22004b61e8c, type: 3}
   maxEnemies: 3
-  initialDelay: 3
+  initialDelay: 0
 --- !u!114 &250378292
 MonoBehaviour:
   m_ObjectHideFlags: 0
