@@ -2598,7 +2598,10 @@ MonoBehaviour:
   - name: Player_Fire
     volume: 0.412
     clips:
-    - {fileID: 8300000, guid: 60a8b2af61de6a347ab8dc51e4e7e3bd, type: 3}
+    - {fileID: 8300000, guid: c658bd32ed64aef4e91a4e846c1d11f1, type: 3}
+    - {fileID: 8300000, guid: 90278762b5a2f7945874e7d8eeb63101, type: 3}
+    - {fileID: 8300000, guid: 490dd89e13b34e9438f7c5aad43e32fc, type: 3}
+    - {fileID: 8300000, guid: c281e6d85138b99479b65a8bbd5c1f9d, type: 3}
   audioSourcePoolSize: 5
 --- !u!82 &1485200795
 AudioSource:

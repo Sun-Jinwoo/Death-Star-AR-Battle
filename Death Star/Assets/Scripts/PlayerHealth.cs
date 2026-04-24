@@ -34,6 +34,8 @@ public class PlayerHealth : MonoBehaviour
         OnHPChanged?.Invoke(HPPercent);
         CameraShake.Instance?.Shake(0.2f, 0.1f);
 
+        AudioManager.Instance?.Play("Player_Damage");
+
         if (CurrentHP <= 0f && !isDead)
         {
             isDead = true;
