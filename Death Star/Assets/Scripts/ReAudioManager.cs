@@ -3,20 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class AudioManager : MonoBehaviour
+public class ReAudioManager : MonoBehaviour
 {
-    public static AudioManager instancia;
-
-    [Header("Audio Sources")]
-    public AudioSource efectosSource;
-    public AudioSource musicaSource;
-
-    [Header("Clips")]
-    public AudioClip click;
-    public AudioClip hover;
-    public AudioClip musicaFondo;
-
-    // ?? Sistema de entradas dinámicas ????????????????????????????
+    public static ReAudioManager Instance { get; private set; }
 
     [Serializable]
     public class AudioEntry
@@ -36,7 +25,7 @@ public class AudioManager : MonoBehaviour
     [Tooltip("Agrega una entrada por cada tipo de sonido del juego")]
     public List<AudioEntry> audioEntries = new List<AudioEntry>();
 
-    [Header("Configuración Pool")]
+    [Header("Configuración")]
     [SerializeField]
     [Tooltip("Cuántos sonidos pueden sonar al mismo tiempo")]
     private int audioSourcePoolSize = 5;
@@ -45,62 +34,18 @@ public class AudioManager : MonoBehaviour
     private int currentSource = 0;
     private Dictionary<string, AudioEntry> audioMap;
 
-    public static AudioManager Instance { get; internal set; }
-
-    // ?? Awake ????????????????????????????????????????????????????
-
     void Awake()
     {
-        // Singleton original — conservado intacto
-        if (instancia == null)
-        {
-            instancia = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        Instance = this;
 
         BuildAudioMap();
         CreateAudioSourcePool();
     }
-
-    // ?? Start ????????????????????????????????????????????????????
-
-    void Start()
-    {
-        // Música de fondo — conservada intacta
-        if (musicaFondo != null && !musicaSource.isPlaying)
-        {
-            musicaSource.clip = musicaFondo;
-            musicaSource.loop = true;
-            musicaSource.Play();
-        }
-    }
-
-    // ?? Métodos originales — conservados intactos ????????????????
-
-    public void PlayClick()
-    {
-        if (instancia != null && click != null)
-            instancia.efectosSource.PlayOneShot(click);
-    }
-
-    public void PlayHover()
-    {
-        if (instancia != null && hover != null)
-            instancia.efectosSource.PlayOneShot(hover);
-    }
-
-    public void PlaySound(AudioClip clip)
-    {
-        if (instancia != null && clip != null)
-            instancia.efectosSource.PlayOneShot(clip);
-    }
-
-    // ?? Sistema de entradas dinámicas ????????????????????????????
 
     void BuildAudioMap()
     {
@@ -127,7 +72,8 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // Reproduce un clip aleatorio de la categoría
+    // ?? API pública ??????????????????????????????
+
     public void Play(string entryName)
     {
         if (!audioMap.TryGetValue(entryName, out AudioEntry entry))
@@ -142,7 +88,9 @@ public class AudioManager : MonoBehaviour
             return;
         }
 
+        // Clip aleatorio de la lista
         AudioClip clip = entry.clips[Random.Range(0, entry.clips.Length)];
+
         AudioSource source = audioSources[currentSource];
         currentSource = (currentSource + 1) % audioSources.Length;
 

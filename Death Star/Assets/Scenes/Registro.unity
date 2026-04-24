@@ -2577,6 +2577,29 @@ MonoBehaviour:
   click: {fileID: 8300000, guid: fad0d0e0500b3e248a88db2537c0b416, type: 3}
   hover: {fileID: 0}
   musicaFondo: {fileID: 8300000, guid: d326f9540a15d794b91e0baa5a39d176, type: 3}
+  audioEntries:
+  - name: Caza_Canon
+    volume: 0.545
+    clips:
+    - {fileID: 8300000, guid: bb3ab930f2c0db64fa1bddb03e66d912, type: 3}
+    - {fileID: 8300000, guid: 149dd261368687b44afc06cf20defc98, type: 3}
+  - name: Caza_Fly
+    volume: 0.364
+    clips:
+    - {fileID: 8300000, guid: fcf12c019ab069043a094b806ec566e3, type: 3}
+    - {fileID: 8300000, guid: 3e4526308cf30014b8393b77a0acad47, type: 3}
+    - {fileID: 8300000, guid: 0f1abb329c52a2b4ca4a4a613e88b48a, type: 3}
+    - {fileID: 8300000, guid: 4e45e9225c6170f469822d9fb7e6c4bd, type: 3}
+    - {fileID: 8300000, guid: f2ac92dc9ddae384db516508d53ccb6b, type: 3}
+  - name: Star_Death
+    volume: 0.379
+    clips:
+    - {fileID: 8300000, guid: 60a8b2af61de6a347ab8dc51e4e7e3bd, type: 3}
+  - name: Player_Fire
+    volume: 0.412
+    clips:
+    - {fileID: 8300000, guid: 60a8b2af61de6a347ab8dc51e4e7e3bd, type: 3}
+  audioSourcePoolSize: 5
 --- !u!82 &1485200795
 AudioSource:
   m_ObjectHideFlags: 0

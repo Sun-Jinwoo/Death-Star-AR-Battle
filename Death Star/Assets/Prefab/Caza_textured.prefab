@@ -433,6 +433,18 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: bebe5546a0071d54eb2b82b2f715f593, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 9220a94f6a9f09c41a553d7f675838d3, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 4499c23e6e5daf94bb21d7607de0e0b5, type: 2}
     - target: {fileID: 919132149155446097, guid: 9e63ec8d55bac1c479bf2730578ec7ec, type: 3}
       propertyPath: m_Name
       value: Caza_textured
@@ -504,7 +516,6 @@ MonoBehaviour:
   orbitSpeed: 30
   orbitRadius: 3
   fireRate: 2.5
-  fireAngleThreshold: 30
 --- !u!114 &9195417983568456043
 MonoBehaviour:
   m_ObjectHideFlags: 0

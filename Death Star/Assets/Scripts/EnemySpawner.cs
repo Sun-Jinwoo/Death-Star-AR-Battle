@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 public class EnemySpawner : MonoBehaviour
 {
@@ -46,6 +47,9 @@ public class EnemySpawner : MonoBehaviour
         for (int i = 0; i < maxEnemies; i++)
         {
             SpawnEnemy(i);
+
+            AudioManager.Instance?.Play("Caza_Fly");
+
             OnEnemySpawned?.Invoke();
             yield return new WaitForSeconds(2f); // ← espera 2s entre cada spawn
         }
