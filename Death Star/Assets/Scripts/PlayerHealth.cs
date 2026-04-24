@@ -42,7 +42,7 @@ public class PlayerHealth : MonoBehaviour
             OnPlayerDead?.Invoke();
             GameManager.Instance.TriggerDefeat();
 
-            AudioManager.Instance?.Play("Lose ");
+            AudioManager.Instance?.Play("Lose  ");
         }
     }
 }
