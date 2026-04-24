@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
-    public enum GameState { Playing, Won, Lost }
+    public enum GameState { WaitingPlacement, Playing, Won, Lost }
 
     public static GameManager Instance { get; private set; }
     public GameState State { get; private set; } = GameState.Playing;
@@ -22,10 +22,11 @@ public class GameManager : MonoBehaviour
         Instance = this;
     }
 
+    // Cambia el estado inicial en Start:
     void Start()
     {
         deathStar.OnVictory += () => SetState(GameState.Won);
-        SetState(GameState.Playing);
+        SetState(GameState.WaitingPlacement); // ← antes era Playing
     }
 
     public void SetState(GameState newState)
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour
         Debug.Log($"[GameManager] *** Estado: {newState} ***");
     }
 
-    // El temporizador llamar� esto cuando se acabe el tiempo
+    // El temporizador llamará esto cuando se acabe el tiempo
     public void TriggerDefeat() => SetState(GameState.Lost);
 
     void OnDestroy()
