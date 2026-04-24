@@ -1,8 +1,11 @@
 ﻿using System;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject sceneRoot;
     public enum GameState { WaitingPlacement, Playing, Won, Lost }
 
     public static GameManager Instance { get; private set; }
@@ -29,6 +32,20 @@ public class GameManager : MonoBehaviour
         SetState(GameState.WaitingPlacement); // ← antes era Playing
     }
 
+    void Update()
+    {
+        // Solo en el Editor — presiona Space para saltar el placement
+#if UNITY_EDITOR
+        if (Keyboard.current != null &&
+            Keyboard.current.spaceKey.wasPressedThisFrame &&
+            State == GameState.WaitingPlacement)
+        {
+            Debug.Log("[GameManager] Space presionado — saltando placement");
+            sceneRoot.SetActive(true);
+            SetState(GameState.Playing);
+        }
+#endif
+    }
     public void SetState(GameState newState)
     {
         State = newState;
@@ -44,5 +61,11 @@ public class GameManager : MonoBehaviour
         // Evita memory leaks al salir del play mode
         if (deathStar != null)
             deathStar.OnVictory -= () => SetState(GameState.Won);
+    }
+
+    public void RestartGame()
+    {
+        // Recarga la escena actual — resetea todo el estado
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

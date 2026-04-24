@@ -13,6 +13,10 @@ public class UIManager : MonoBehaviour
     [SerializeField] private GameObject crosshair;
     [SerializeField] private GameObject hud;
 
+    [Header("Player HP")]
+    [SerializeField] private Slider playerHPSlider;
+    [SerializeField] private TextMeshProUGUI playerHPText;
+
     [Header("Pantallas de resultado")]
     [SerializeField] private GameObject winScreen;
     [SerializeField] private GameObject loseScreen;
@@ -40,6 +44,12 @@ public class UIManager : MonoBehaviour
     void Start()
     {
         timeLeft = totalTime;
+
+        if (PlayerHealth.Instance != null)
+        {
+            PlayerHealth.Instance.OnHPChanged += HandlePlayerHPChanged;
+        }
+
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
         UpdateHPDisplay(1f);
@@ -67,6 +77,12 @@ public class UIManager : MonoBehaviour
     {
         hits++;
         UpdateHPDisplay(percent);
+    }
+
+    void HandlePlayerHPChanged(float percent)
+    {
+        if (playerHPSlider != null) playerHPSlider.value = percent;
+        if (playerHPText != null) playerHPText.text = $"{percent * 100:F0}%";
     }
 
     void HandleStateChanged(GameManager.GameState state)
