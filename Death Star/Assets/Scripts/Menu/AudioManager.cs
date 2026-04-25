@@ -38,7 +38,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 🔊 CLICK
+    
     public void PlayClick()
     {
         if (instancia != null && click != null)
@@ -47,7 +47,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 🔊 HOVER
+    
     public void PlayHover()
     {
         if (instancia != null && hover != null)
@@ -56,7 +56,7 @@ public class AudioManager : MonoBehaviour
         }
     }
 
-    // 🔊 GENERICO
+    
     public void PlaySound(AudioClip clip)
     {
         if (instancia != null && clip != null)
