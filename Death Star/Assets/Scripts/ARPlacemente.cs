@@ -48,15 +48,14 @@ public class ARPlacementManager : MonoBehaviour
         {
             Pose hitPose = hits[0].pose;
 
-            // Posiciona el SceneRoot
             sceneRoot.transform.SetPositionAndRotation(
                 hitPose.position,
                 hitPose.rotation
             );
             sceneRoot.SetActive(true);
 
-            // Ancla el objeto al mundo real
-            AnchorScene(hits[0]);
+            // ← AGREGA ESTA LÍNEA
+            SkyboxController.Instance?.ActivateSpace();
 
             scenePlaced = true;
             StopPlaneDetection();
