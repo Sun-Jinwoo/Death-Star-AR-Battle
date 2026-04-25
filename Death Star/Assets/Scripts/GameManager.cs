@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
+
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
@@ -67,5 +68,10 @@ public class GameManager : MonoBehaviour
     {
         // Recarga la escena actual — resetea todo el estado
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void GoToMainMenu()
+    {
+        SceneManager.LoadScene(0); // ← índice de MainMenu
     }
 }

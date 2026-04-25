@@ -6,7 +6,6 @@ public class EnemyShip : MonoBehaviour
     [SerializeField] private float orbitSpeed = 30f;
     [SerializeField] private float orbitRadius = 2f;
     [SerializeField] private float fireRate = 2.5f;
-    [SerializeField] private float fireAngleThreshold = 30f;
 
     private Quaternion prefabRotationOffset;
     private Transform target;
