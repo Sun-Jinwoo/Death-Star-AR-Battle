@@ -153,8 +153,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &192971967
 MonoBehaviour:
@@ -368,8 +368,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &333129811
 MonoBehaviour:
@@ -659,8 +659,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.807098, y: 54.458885}
-  m_SizeDelta: {x: 1345.7299, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490929917
 MonoBehaviour:
@@ -887,8 +887,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &676288877
 MonoBehaviour:
@@ -1101,8 +1101,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &728178925
 MonoBehaviour:
@@ -1244,8 +1244,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &853124115
 MonoBehaviour:
@@ -1811,8 +1811,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &928171005
 MonoBehaviour:
@@ -2695,8 +2695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1573960148
 MonoBehaviour:
@@ -2833,8 +2833,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1766470682
 MonoBehaviour:
@@ -3876,8 +3876,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -11.8071, y: 54.45889}
-  m_SizeDelta: {x: 1345.73, y: 372.9825}
+  m_AnchoredPosition: {x: 20.1741, y: 42.32859}
+  m_SizeDelta: {x: 1281.768, y: 348.722}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2089557810
 MonoBehaviour:
@@ -3899,8 +3899,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "Recuerda, piloto\u2026\nEsta no es solo otra misi\xF3n.\nEs la esperanza
-    de toda la galaxia.\nConf\xEDo en ti\u2026\n\nmay the force be with you!"
+  m_text: "Recuerda, piloto\u2026\nEsta no es solo otra mision,\nEs la esperanza
+    de toda la galaxia, que esta en tus manos.\n\nmay the force be with you!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 9ea41be3e1675eb49ab63899fd02b8fd, type: 2}
   m_sharedMaterial: {fileID: 4788570939536888330, guid: 9ea41be3e1675eb49ab63899fd02b8fd, type: 2}
