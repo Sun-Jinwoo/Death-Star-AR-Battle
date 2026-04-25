@@ -65,10 +65,9 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        // Recarga la escena actual — resetea todo el estado
+        SkyboxController.Instance?.DeactivateSpace();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-
     public void GoToMainMenu()
     {
         SceneManager.LoadScene(0); // ← índice de MainMenu
