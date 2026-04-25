@@ -77,6 +77,8 @@ public class EnemyShip : MonoBehaviour
 
         // ← elimina la verificación de ángulo, siempre dispara
         EnemyProjectilPool.Instance.Get(transform.position, dirToPlayer);
+
+        AudioManager.Instance?.Play("Caza_Canon");
     }
     void OnDisable()
     {

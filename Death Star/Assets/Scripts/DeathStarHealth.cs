@@ -57,6 +57,8 @@ public class DeathStarHealth : MonoBehaviour
 
             transform.localScale = originalScale * scaleMult;
 
+            AudioManager.Instance?.Play("Star_Death");
+
             elapsed += Time.deltaTime;
             yield return null;
         }

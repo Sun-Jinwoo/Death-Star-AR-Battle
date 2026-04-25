@@ -48,5 +48,7 @@ public class WeaponSystem : MonoBehaviour
         Quaternion rotation = Quaternion.LookRotation(direction);
 
         ObjectPool.Instance.Get(firePoint.position, rotation);
+
+        AudioManager.Instance?.Play("Player_Fire");
     }
 }
