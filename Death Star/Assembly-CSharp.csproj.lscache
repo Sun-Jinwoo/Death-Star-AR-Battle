@@ -62,6 +62,8 @@ Assets/Scripts/
  CriticalPoint.cs
  CrossHairMover.cs
  DeathStarHealth.cs
+ EnemyHealth.cs
+ EnemyHealthBar.cs
  EnemyProjectil.cs
  EnemyProjectilPool.cs
  EnemyShip.cs
@@ -76,11 +78,13 @@ Assets/Scripts/
   RegistroUsuarios.cs
   SceneLoader.cs
   TutorialManager.cs
+  TypewriterTMP.cs
   UIButtonSound.cs
  ObjectPool.cs
  PlacementUI.cs
  PlayerHealth.cs
  PlayerMovement.cs
+ SimpleEffect.cs
  UIManager.cs
  VirtualJoystick.cs
  WeaponSystem.cs
