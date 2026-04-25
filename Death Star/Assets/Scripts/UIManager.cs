@@ -196,7 +196,7 @@ public class UIManager : MonoBehaviour
         {
             EnemySpawner.Instance.OnEnemySpawned += ShowShieldWarning;
             EnemySpawner.Instance.OnAllEnemiesDefeated += HideShieldWarning; // ← nuevo
-            Debug.Log("[UIManager] ✅ Suscrito a EnemySpawner");
+            Debug.Log("[UIManager] ✅ Suscrito a EnemySpawner"); 
         }
     }
 
