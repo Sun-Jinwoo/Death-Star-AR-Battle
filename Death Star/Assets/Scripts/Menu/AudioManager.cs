@@ -45,7 +45,7 @@ public class AudioManager : MonoBehaviour
     private int currentSource = 0;
     private Dictionary<string, AudioEntry> audioMap;
 
-    public static AudioManager Instance { get; internal set; }
+    public static AudioManager Instance => instancia;
 
     // ?? Awake ????????????????????????????????????????????????????
 
@@ -130,6 +130,7 @@ public class AudioManager : MonoBehaviour
     // Reproduce un clip aleatorio de la categoría
     public void Play(string entryName)
     {
+        Debug.Log($"[AudioManager] Play: {entryName}");
         if (!audioMap.TryGetValue(entryName, out AudioEntry entry))
         {
             Debug.LogWarning($"[AudioManager] Entrada no encontrada: '{entryName}'");
