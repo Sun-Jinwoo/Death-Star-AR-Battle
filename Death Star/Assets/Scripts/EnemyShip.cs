@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using UnityEngine;
 
 public class EnemyShip : MonoBehaviour
@@ -15,10 +15,16 @@ public class EnemyShip : MonoBehaviour
 
     void Start()
     {
-        // Guarda la rotaci�n original del prefab como offset
         prefabRotationOffset = transform.localRotation;
         target = Object.FindFirstObjectByType<DeathStarHealth>()?.transform;
+
+        // Busca la cámara de forma más robusta
         mainCam = Camera.main;
+
+        if (mainCam == null)
+
+        if (target == null)
+
         orbitAngle = Random.Range(0f, 360f);
         StartCoroutine(FireRoutine());
     }
@@ -27,6 +33,12 @@ public class EnemyShip : MonoBehaviour
     {
         if (GameManager.Instance.State != GameManager.GameState.Playing) return;
         if (target == null) return;
+
+        if (mainCam == null)
+        {
+            mainCam = Camera.main; // intenta encontrarla de nuevo
+            return;
+        }
 
         orbitAngle += orbitSpeed * Time.deltaTime;
 
@@ -49,7 +61,6 @@ public class EnemyShip : MonoBehaviour
     {
         while (true)
         {
-            // Cadencia variable para que no disparen todos al mismo tiempo
             yield return new WaitForSeconds(fireRate + Random.Range(-0.5f, 0.5f));
 
             if (GameManager.Instance.State != GameManager.GameState.Playing) continue;
@@ -61,16 +72,13 @@ public class EnemyShip : MonoBehaviour
     void FireAtPlayer()
     {
         if (mainCam == null) return;
+        if (EnemyProjectilPool.Instance == null) return;
 
         Vector3 dirToPlayer = (mainCam.transform.position - transform.position).normalized;
 
-        // Solo dispara si est� orientado hacia el jugador
-        float angle = Vector3.Angle(transform.forward, dirToPlayer);
-        if (angle > fireAngleThreshold) return;
-
+        // ← elimina la verificación de ángulo, siempre dispara
         EnemyProjectilPool.Instance.Get(transform.position, dirToPlayer);
     }
-
     void OnDisable()
     {
         StopAllCoroutines();

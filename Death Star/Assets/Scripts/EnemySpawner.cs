@@ -42,32 +42,50 @@ public class EnemySpawner : MonoBehaviour
 
         if (GameManager.Instance.State != GameManager.GameState.Playing) yield break;
 
-        // Spawnea los 3 enemigos una sola vez
+        // Spawea uno por uno con delay entre cada uno
         for (int i = 0; i < maxEnemies; i++)
-            SpawnEnemy();
-
-        OnEnemySpawned?.Invoke();
+        {
+            SpawnEnemy(i);
+            OnEnemySpawned?.Invoke();
+            yield return new WaitForSeconds(2f); // ← espera 2s entre cada spawn
+        }
 
         // Espera hasta que todos mueran
         yield return new WaitUntil(() => !HasActiveEnemies);
 
-        Debug.Log("[EnemySpawner] Todos los enemigos eliminados — estrella vulnerable");
+        Debug.Log("[EnemySpawner] Todos eliminados — estrella vulnerable");
         OnAllEnemiesDefeated?.Invoke();
     }
 
-    void SpawnEnemy()
+    void SpawnEnemy(int index)
     {
         var ds = UnityEngine.Object.FindFirstObjectByType<DeathStarHealth>();
         if (ds == null) return;
 
-        Vector3 spawnPos = ds.transform.position + (UnityEngine.Random.insideUnitSphere * 0.3f);
+        // Ángulo fijo por índice + variación aleatoria
+        float baseAngle = (360f / maxEnemies) * index;
+        float randomAngle = baseAngle + UnityEngine.Random.Range(-30f, 30f);
+        float rad = randomAngle * Mathf.Deg2Rad;
+
+        // Altura aleatoria
+        float height = UnityEngine.Random.Range(-2f, 2f);
+
+        // Radio grande — ajusta según tu escena
+        float radius = 5f;
+
+        Vector3 offset = new Vector3(
+            Mathf.Cos(rad) * radius,
+            height,
+            Mathf.Sin(rad) * radius
+        );
+
+        Vector3 spawnPos = ds.transform.position + offset;
         var enemy = Instantiate(enemyPrefab, spawnPos, enemyPrefab.transform.rotation);
         enemy.transform.SetParent(transform);
         activeEnemies.Add(enemy);
 
-        Debug.Log($"[EnemySpawner] Enemigo {activeEnemies.Count}/{maxEnemies} spawneado");
+        Debug.Log($"[EnemySpawner] Enemigo {index} — ángulo {randomAngle:F0}° — pos {spawnPos}");
     }
-
     public void ClearAllEnemies()
     {
         foreach (var e in activeEnemies)

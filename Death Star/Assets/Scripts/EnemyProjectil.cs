@@ -30,10 +30,10 @@ public class EnemyProjectil : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        // Daña al jugador si golpea el SceneRoot o un collider del jugador
-        if (other.CompareTag("Player"))
+        PlayerHealth ph = other.GetComponentInParent<PlayerHealth>();
+        if (ph != null)
         {
-            PlayerHealth.Instance?.TakeDamage(damage);
+            ph.TakeDamage(damage);
             EnemyProjectilPool.Instance.Return(gameObject);
         }
     }

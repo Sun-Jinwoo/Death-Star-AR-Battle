@@ -18,8 +18,17 @@ public class WeaponSystem : MonoBehaviour
     // Llamado por el FireButton
     public void TryFire()
     {
-        if (GameManager.Instance.State != GameManager.GameState.Playing) return;
-        if (Time.time < nextFireTime) return;
+        Debug.Log("[WeaponSystem] TryFire ejecutado");
+        if (GameManager.Instance.State != GameManager.GameState.Playing)
+        {
+            Debug.Log($"[WeaponSystem] Estado incorrecto: {GameManager.Instance.State}");
+            return;
+        }
+        if (Time.time < nextFireTime)
+        {
+            Debug.Log("[WeaponSystem] En cooldown");
+            return;
+        }
 
         Fire();
         nextFireTime = Time.time + fireRate;
