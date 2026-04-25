@@ -32,7 +32,7 @@ public class RegistroUsuarios : MonoBehaviour
         panelUsuarios.SetActive(false);
     }
 
-    // 🔹 Registrar usuario
+    //  Registrar usuario
     public void RegistrarUsuario()
     {
         string nombre = inputNombre.text.Trim();
@@ -66,14 +66,14 @@ public class RegistroUsuarios : MonoBehaviour
         inputNombre.text = "";
     }
 
-    // 🔹 Guardar en JSON
+    // Guardar en JSON
     void GuardarUsuarios()
     {
         string json = JsonUtility.ToJson(lista, true);
         File.WriteAllText(ruta, json);
     }
 
-    // 🔹 Cargar JSON
+    //  Cargar JSON
     void CargarUsuarios()
     {
         if (File.Exists(ruta))
@@ -83,7 +83,7 @@ public class RegistroUsuarios : MonoBehaviour
         }
     }
 
-    // 🔹 Mostrar usuarios en el panel
+    //  Mostrar usuarios en el panel
     public void MostrarUsuarios()
     {
         CargarUsuarios();
@@ -105,9 +105,24 @@ public class RegistroUsuarios : MonoBehaviour
         panelUsuarios.SetActive(true);
     }
 
-    // 🔹 Cerrar panel
+    //  Cerrar panel
     public void CerrarPanel()
     {
         panelUsuarios.SetActive(false);
+    }
+
+    // Limpiar TODOS los usuarios
+    public void LimpiarUsuarios()
+    {
+        // Vaciar lista en memoria
+        lista.usuarios = new Usuario[0];
+
+        // Guardar cambios en JSON
+        GuardarUsuarios();
+
+        // Actualizar UI si está abierto el panel
+        listaUsuariosText.text = "No hay usuarios registrados";
+
+        Debug.Log("Todos los usuarios fueron eliminados");
     }
 }
