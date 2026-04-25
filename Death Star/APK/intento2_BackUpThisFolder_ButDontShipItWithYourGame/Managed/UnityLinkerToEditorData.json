@@ -19,6 +19,8 @@
           {
             "name": "NavMeshSettings",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
@@ -112,6 +114,8 @@
           {
             "name": "AudioBehaviour",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -119,13 +123,17 @@
           },
           {
             "name": "AudioClip",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/NewMenu.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
           {
             "name": "AudioListener",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -139,13 +147,17 @@
           },
           {
             "name": "AudioResource",
-            "scenes": [],
-            "dependencyType": 1,
+            "scenes": [
+              "Assets/Scenes/NewMenu.unity"
+            ],
+            "dependencyType": 0,
             "icon": null
           },
           {
             "name": "AudioSource",
-            "scenes": [],
+            "scenes": [
+              "Assets/Scenes/NewMenu.unity"
+            ],
             "dependencyType": 0,
             "icon": null
           },
@@ -181,6 +193,8 @@
           {
             "name": "Camera",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -201,6 +215,8 @@
           {
             "name": "Cubemap",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -221,6 +237,8 @@
           {
             "name": "EditorExtension",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
@@ -235,6 +253,8 @@
           {
             "name": "GameObject",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -267,6 +287,8 @@
           {
             "name": "LevelGameManager",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
@@ -275,6 +297,8 @@
           {
             "name": "Light",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -301,6 +325,8 @@
           {
             "name": "LightmapSettings",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -323,6 +349,8 @@
           {
             "name": "Material",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -355,6 +383,8 @@
           {
             "name": "MonoBehaviour",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -369,6 +399,8 @@
           {
             "name": "MonoScript",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
@@ -377,6 +409,8 @@
           {
             "name": "NamedObject",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 1,
@@ -415,6 +449,8 @@
           {
             "name": "RectTransform",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -429,6 +465,8 @@
           {
             "name": "RenderSettings",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -461,6 +499,8 @@
           {
             "name": "Shader",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -487,6 +527,8 @@
           {
             "name": "Sprite",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -1636,6 +1678,8 @@
           {
             "name": "Font",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -1708,6 +1752,8 @@
           {
             "name": "Canvas",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,
@@ -1722,6 +1768,8 @@
           {
             "name": "CanvasRenderer",
             "scenes": [
+              "Assets/Scenes/NewMenu.unity",
+              "Assets/Scenes/Registro.unity",
               "Assets/Scenes/SampleScene.unity"
             ],
             "dependencyType": 0,

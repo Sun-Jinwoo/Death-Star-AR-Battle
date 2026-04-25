@@ -53,8 +53,7 @@ public class UIManager : MonoBehaviour
             PlayerHealth.Instance.OnHPChanged += HandlePlayerHPChanged;
         }
 
-        if (EnemySpawner.Instance != null)
-            EnemySpawner.Instance.OnEnemySpawned += ShowShieldWarning;
+        StartCoroutine(SubscribeToSpawner());
 
         winScreen.SetActive(false);
         loseScreen.SetActive(false);
@@ -158,23 +157,56 @@ public class UIManager : MonoBehaviour
         if (deathStarHealth != null) deathStarHealth.OnHPChanged -= HandleHPChanged;
         if (gameManager != null) gameManager.OnStateChanged -= HandleStateChanged;
         if (EnemySpawner.Instance != null)
+        {
             EnemySpawner.Instance.OnEnemySpawned -= ShowShieldWarning;
+            EnemySpawner.Instance.OnAllEnemiesDefeated -= HideShieldWarning;
+        }
     }
 
     void ShowShieldWarning()
     {
-        Debug.Log($"[UIManager] ShowShieldWarning llamado — shieldText: {shieldText}");
-        if (shieldText != null)
-            StartCoroutine(FlashShieldText());
-        else
-            Debug.LogError("[UIManager] ShieldText es null");
+        if (shieldText != null && !shieldText.activeSelf)
+            StartCoroutine(ShowUntilEnemiesDefeated());
     }
 
-    IEnumerator FlashShieldText()
+
+    IEnumerator ShowUntilEnemiesDefeated()
     {
-        Debug.Log("[UIManager] FlashShieldText iniciado");
         shieldText.SetActive(true);
-        yield return new WaitForSeconds(1.5f);
+
+        // Espera hasta que no haya enemigos activos
+        while (EnemySpawner.Instance != null && EnemySpawner.Instance.HasActiveEnemies)
+        {
+            yield return new WaitForSeconds(0.5f); // chequea cada medio segundo
+        }
+
         shieldText.SetActive(false);
+    }
+
+    IEnumerator SubscribeToSpawner()
+    {
+        float elapsed = 0f;
+        while (EnemySpawner.Instance == null && elapsed < 30f)
+        {
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        if (EnemySpawner.Instance != null)
+        {
+            EnemySpawner.Instance.OnEnemySpawned += ShowShieldWarning;
+            EnemySpawner.Instance.OnAllEnemiesDefeated += HideShieldWarning; // ← nuevo
+            Debug.Log("[UIManager] ✅ Suscrito a EnemySpawner");
+        }
+    }
+
+    void HideShieldWarning()
+    {
+        StopAllCoroutines(); // detiene cualquier coroutine activa
+        if (shieldText != null)
+            shieldText.SetActive(false);
+
+        // Reinicia el timer si lo detuviste
+        // running = true; ← solo si pausaste el timer durante la oleada
     }
 }
